@@ -1,2 +1,7 @@
 # ETA-Farmacia
-Repo for Programming Review class at Agile Testing Specialization
+Repo para cadeira de Revisão de Programação da Especialização em Testes Ágeis.
+
+**Requisitos**
+
+![](requisitos.jpg)
+
