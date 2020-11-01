@@ -1,7 +1,8 @@
+import java.math.BigDecimal;
 import java.util.Date;
 
 public abstract class Produto {
-    private double preco;
+    private BigDecimal preco;
     private String descricao;
     private Date validade;
     private double descontoMaximo;
@@ -9,8 +10,8 @@ public abstract class Produto {
     private Fornecedor fornecedor;
     private int estoque;
 
-    public Produto(double preco, String descricao, Date validade, double descontoMaximo, Fornecedor fornecedor, int estoque){
-        this.preco = preco;
+    public Produto(BigDecimal preco, String descricao, Date validade, double descontoMaximo, Fornecedor fornecedor, int estoque){
+        this.preco = preco.setScale(2, BigDecimal.ROUND_UP);
         this.descricao = descricao;
         this.validade = validade;
         this.descontoMaximo = descontoMaximo;
@@ -19,11 +20,14 @@ public abstract class Produto {
         this.estoque = estoque;
     }
 
-    public double getPreco() {
+    public BigDecimal getPreco() {
+        if (this.desconto > 0){
+            return preco.subtract(this.preco.multiply(new BigDecimal(this.desconto))).setScale(2, BigDecimal.ROUND_UP);
+        }
         return preco;
     }
 
-    public void setPreco(double preco) {
+    public void setPreco(BigDecimal preco) {
         this.preco = preco;
     }
 
@@ -47,13 +51,12 @@ public abstract class Produto {
         return desconto;
     }
 
-    public void setDesconto(double desconto) {
+    public boolean setDesconto(double desconto) {
         if (desconto <= this.descontoMaximo){
             this.desconto = desconto;
-            System.out.println("Desconto de " + desconto*100 + "% aplicado.");
-        }else {
-            System.out.println("Desconto inválido");
+            return true;
         }
+        return false;
     }
 
     public double getDescontoMaximo() {
