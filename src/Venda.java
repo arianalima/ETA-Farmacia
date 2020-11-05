@@ -2,12 +2,15 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class Venda {
-    private ArrayList<Produto> produtos = new ArrayList<>();
+    private ArrayList<Produto> produtos;
     private Cliente cliente;
-    private BigDecimal valorTotal = new BigDecimal(0);
+    private BigDecimal valorTotal;
 
     public Venda(Cliente cliente){
+        this.produtos = new ArrayList<>();
         this.cliente = cliente;
+        this.valorTotal = new BigDecimal(0);
+
     }
 
     public ArrayList<Produto> getProdutos() {
